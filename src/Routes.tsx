@@ -5,14 +5,21 @@ import {
 
 import Login from './Pages/Login';
 // Maybe change?
-// import DashboardLayout from './Layouts/Dashboard/DashboardLayout';
+import DashboardLayout from './Layouts/Dashboard/DashboardLayout';
 import LogoOnlyLayout from './Layouts/LogoOnlyLayout';
 
 import Register from './Pages/Register';
-// import DashboardApp from './Pages/DashboardApp';
+import DashboardApp from './Pages/DashboardApp';
 
 export default function Router() {
   return useRoutes([
+    {
+      path: '/dashboard',
+      element: <DashboardLayout />,
+      children: [
+        { path: 'profile', element: <DashboardApp /> },
+      ]
+    },
     {
       path: '/',
       element: <LogoOnlyLayout />,
