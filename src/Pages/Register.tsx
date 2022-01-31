@@ -3,7 +3,7 @@ import { useState, ChangeEvent } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
 
 export default function Register() {
-  interface registerDetails {
+  interface RegisterDetails {
     email: string;
     username: string;
     password: string;
@@ -14,7 +14,7 @@ export default function Register() {
     bio: string;
   }
 
-  const [registerDetail, setRegisterDetail] = useState<registerDetails>({
+  const [registerDetail, setRegisterDetail] = useState<RegisterDetails>({
     email: "",
     username: "",
     password: "",
@@ -24,21 +24,12 @@ export default function Register() {
     github: "",
     bio: ""
   });
-  const handleChange = (prop: keyof registerDetails) => (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (prop: keyof RegisterDetails) => (event: ChangeEvent<HTMLInputElement>) => {
     setRegisterDetail({ ...registerDetail, [prop]: event.target.value });
   };
   
   const register = async () => {
-    axios.post('https://terry-h12-project-portfolio.herokuapp.com/account/register/', {
-      "email": registerDetail.email,
-      "username": registerDetail.username,
-      "password": registerDetail.password,
-      "first_name": registerDetail.first_name,
-      "last_name": registerDetail.last_name,
-      "profile_pic": registerDetail.profile_pic,
-      "github": registerDetail.github,
-      "bio": registerDetail.bio
-    })
+    axios.post('https://terry-h12-project-portfolio.herokuapp.com/account/register/', registerDetail)
     .then(function (response) {
       console.log(response);
       // if (response.data.response === "Registration successful!") navigate('/login');

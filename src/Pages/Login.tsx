@@ -20,14 +20,11 @@ export default function Login() {
   //"username": "tezzza",
   // "password": "tezzzpassword",
   const login = async () => {
-    axios.post('https://terry-h12-project-portfolio.herokuapp.com/account/login/', {
-      "username": loginDetail.username,
-      "password": loginDetail.password
-    })
+    axios.post('https://terry-h12-project-portfolio.herokuapp.com/account/login/', loginDetail)
     .then(function (response) {
       window.localStorage.setItem('token', response.data.token);
-      // window.localStorage.setItem('user_id', response.data.user_id);
-      // window.localStorage.setItem('username', response.data.username);
+      window.localStorage.setItem('user_id', response.data.user_id);
+      window.localStorage.setItem('username', response.data.username);
       // window.localStorage.setItem('is_org', response.data.is_org);
       // window.localStorage.setItem('profile_pic', response.data.profile_pic);
       // window.localStorage.setItem('email', response.data.email);
