@@ -7,46 +7,70 @@ import { Link,
   // useNavigate 
 } from 'react-router-dom';
 
-export default function Dashboard() {
-  // interface profileDetails {
-  //   email: string;
-  //   username: string;
-  //   password: string;
-  //   first_name: string;
-  //   last_name: string;
-  //   profile_pic: string;
-  //   github: string;
-  //   bio: string;
-  // }
+// import Profile from '../Components/Profile';
+import ProjectCard from '../Components/ProjectCard';
 
-  const [profileDetail, setProfileDetail] = useState({})
-  const profile = async () => {
-    axios.get(`https://terry-h12-project-portfolio.herokuapp.com/account/profile/?user_id=${window.localStorage.getItem('user_id')}`, {
-      headers:{
-        'Authorization': `Token ${window.localStorage.getItem('token')}`
-      },
-    })
-    .then(function (response) {
-      console.log(response)
-      setProfileDetail(response.data)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-  
+export interface projectDetails {
+  account_id: number;
+  description: string;
+  image_url: string;
+  is_public: boolean;
+  pk: number;
+  profile_pic: string;
+  time_created: string;
+  title: string;
+  username: string;
+}
+
+export default function DashboardApp() {
+  // const [profileDetail, setProfileDetail] = useState<profileDetails>({
+  //   email: "",
+  //   username: "",
+  //   password: "",
+  //   first_name: "",
+  //   last_name: "",
+  //   profile_pic: "",
+  //   github: "",
+  //   bio: "",
+  // })
+  const [projects, setProjects] = useState<projectDetails[]>([]);
   useEffect(() => {
-    console.log(profileDetail)
-  },[profileDetail])
+    const userId = window.localStorage.getItem('user_id')
+    const userProjects = async () => {
+      try {
+        const resp = await axios.get(`https://terry-h12-project-portfolio.herokuapp.com/project/profileprojects/?user_id=${userId}`, {
+          headers:{
+            'Authorization': `Token ${window.localStorage.getItem('token')}`
+          },
+        })
+        setProjects(resp.data.results)
+        console.log(resp.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    // console.log(profileDetail)
+    // profile();
+    userProjects();
+  },[])
 
 
   return (
     <div>
       Dashboard
-      <button onClick={profile}>profile</button> <br/>
+      {/* <button onClick={profile}>profile</button> <br/> */}
+      <br/>
       <Link to="/dashboard/addProject">
         Add New Project
       </Link>
+      {/* <Profile profile={profileDetail}/> */}
+      <Link to="/dashboard/profile">
+        <button>Profile</button>
+      </Link>
+      {projects.map((project, index) => {
+        return (<ProjectCard key={index} project={project}/>)
+      })}
     </div>
   );
 }

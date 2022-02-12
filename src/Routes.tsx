@@ -11,6 +11,8 @@ import LogoOnlyLayout from './Layouts/LogoOnlyLayout';
 import Register from './Pages/Register';
 import DashboardApp from './Pages/DashboardApp';
 import AddProject from './Pages/AddProject';
+import Profile from './Components/Profile';
+import Project from './Pages/Project';
 
 export default function Router() {
   return useRoutes([
@@ -18,8 +20,10 @@ export default function Router() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { path: 'profile', element: <DashboardApp /> },
+        { path: '', element: <DashboardApp /> },
         { path: 'addProject', element: <AddProject /> },
+        { path: 'profile', element: <Profile /> },
+        { path: 'project/:projectId', element: <Project /> },
       ]
     },
     {

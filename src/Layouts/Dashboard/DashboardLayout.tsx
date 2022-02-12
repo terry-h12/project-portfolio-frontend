@@ -1,7 +1,8 @@
 import { 
   // Link,
   useNavigate, 
-  Outlet } from 'react-router-dom';
+  Outlet, 
+  Link} from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -19,7 +20,7 @@ export default function DashboardLayout() {
         navigate('/login');
         window.localStorage.removeItem('token');
       } else {
-        navigate('/dashboard/profile')
+        navigate('/dashboard')
       }
     })
     .catch(function (error) {
@@ -29,6 +30,9 @@ export default function DashboardLayout() {
 
   return (
     <>
+      <Link to='/dashboard'>
+        <button>Dashboard</button>
+      </Link>
       <button onClick={logout}>logout</button>
       <Outlet />
     </>

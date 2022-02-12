@@ -31,7 +31,7 @@ export default function Login() {
       // window.localStorage.setItem('first', response.data.first_name);
       // window.localStorage.setItem('last', response.data.last_name);
       if(response.data.response === "Successful login!"){
-        navigate('/dashboard/profile')
+        navigate('/dashboard')
       } 
       // else {
       //   navigate('/login')

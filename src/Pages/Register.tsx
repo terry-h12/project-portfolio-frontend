@@ -2,19 +2,21 @@ import axios from 'axios';
 import { useState, ChangeEvent } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
 
-export default function Register() {
-  interface RegisterDetails {
-    email: string;
-    username: string;
-    password: string;
-    first_name: string;
-    last_name: string;
-    profile_pic: string;
-    github: string;
-    bio: string;
-  }
+import { profileDetails } from "../Components/Profile"
 
-  const [registerDetail, setRegisterDetail] = useState<RegisterDetails>({
+export default function Register() {
+  // interface RegisterDetails {
+  //   email: string;
+  //   username: string;
+  //   password: string;
+  //   first_name: string;
+  //   last_name: string;
+  //   profile_pic: string;
+  //   github: string;
+  //   bio: string;
+  // }
+
+  const [registerDetail, setRegisterDetail] = useState<profileDetails>({
     email: "",
     username: "",
     password: "",
@@ -24,7 +26,7 @@ export default function Register() {
     github: "",
     bio: ""
   });
-  const handleChange = (prop: keyof RegisterDetails) => (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (prop: keyof profileDetails) => (event: ChangeEvent<HTMLInputElement>) => {
     setRegisterDetail({ ...registerDetail, [prop]: event.target.value });
   };
   
