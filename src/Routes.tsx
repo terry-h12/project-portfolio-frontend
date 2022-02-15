@@ -11,8 +11,11 @@ import LogoOnlyLayout from './Layouts/LogoOnlyLayout';
 import Register from './Pages/Register';
 import DashboardApp from './Pages/DashboardApp';
 import AddProject from './Pages/AddProject';
-import Profile from './Components/Profile';
-import Project from './Pages/Project';
+// import Profile from './Components/Profile';
+import EditProject from './Pages/EditProject';
+import EditProfile from './Pages/EditProfile';
+import SearchUser from './Pages/SearchUser';
+import UserPage from './Components/UserPage';
 
 export default function Router() {
   return useRoutes([
@@ -22,8 +25,10 @@ export default function Router() {
       children: [
         { path: '', element: <DashboardApp /> },
         { path: 'addProject', element: <AddProject /> },
-        { path: 'profile', element: <Profile /> },
-        { path: 'project/:projectId', element: <Project /> },
+        { path: 'editProfile', element: <EditProfile /> },
+        { path: 'project/:projectId', element: <EditProject /> },
+        { path: 'searchUsers', element: <SearchUser /> },
+        { path: 'userPage/:userId', element: <UserPage /> },
       ]
     },
     {

@@ -18,29 +18,21 @@ export default function Login() {
     setLoginDetail({ ...loginDetail, [prop]: event.target.value });
   };
   //"username": "tezzza",
-  // "password": "tezzzpassword",
+  // "password": "tezpass",
   const login = async () => {
-    axios.post('https://terry-h12-project-portfolio.herokuapp.com/account/login/', loginDetail)
-    .then(function (response) {
-      window.localStorage.setItem('token', response.data.token);
-      window.localStorage.setItem('user_id', response.data.user_id);
-      window.localStorage.setItem('username', response.data.username);
-      // window.localStorage.setItem('is_org', response.data.is_org);
-      // window.localStorage.setItem('profile_pic', response.data.profile_pic);
-      // window.localStorage.setItem('email', response.data.email);
-      // window.localStorage.setItem('first', response.data.first_name);
-      // window.localStorage.setItem('last', response.data.last_name);
-      if(response.data.response === "Successful login!"){
+    try {
+      const resp = await axios.post('https://terry-h12-project-portfolio.herokuapp.com/account/login/', loginDetail)
+      console.log(resp.data)
+      const data = resp.data
+      window.localStorage.setItem('token', data.token);
+      window.localStorage.setItem('user_id', data.user_id);
+      window.localStorage.setItem('username', data.username);
+      if(data.response === "Successful login!"){
         navigate('/dashboard')
-      } 
-      // else {
-      //   navigate('/login')
-      // }
-      console.log(response)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

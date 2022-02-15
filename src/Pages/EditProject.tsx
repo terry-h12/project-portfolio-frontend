@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom"
 //   isChecked = true;
 // }
 
-export default function Project() {
+export default function EditProject() {
   const { projectId } = useParams();
   const[projectDetails, setProjectDetails] = useState<ProjectDetails>( {
     title: "",
@@ -46,7 +46,7 @@ export default function Project() {
           },
         })
         // setUserProjects(resp.data.results)
-        console.log(resp.data)
+        // console.log(resp.data)
         setProjectDetails(resp.data)
         setIsPublic(resp.data.is_public)
       } catch (err) {

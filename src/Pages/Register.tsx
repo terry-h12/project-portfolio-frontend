@@ -31,15 +31,12 @@ export default function Register() {
   };
   
   const register = async () => {
-    axios.post('https://terry-h12-project-portfolio.herokuapp.com/account/register/', registerDetail)
-    .then(function (response) {
-      console.log(response);
-      // if (response.data.response === "Registration successful!") navigate('/login');
-      // else navigate('/register');
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    try {
+      const resp = await axios.post('https://terry-h12-project-portfolio.herokuapp.com/account/register/', registerDetail)
+      console.log(resp.data)
+    } catch (err) {
+      console.log(err)
+    }
   }
   return (
     <div>

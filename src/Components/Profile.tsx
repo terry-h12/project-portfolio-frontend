@@ -1,6 +1,7 @@
 // import { profileDetails } from "../Pages/DashboardApp"
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+// import { Link } from 'react-router-dom'
 
 export interface profileDetails {
   email: string;
@@ -13,7 +14,9 @@ export interface profileDetails {
   bio: string;
 }
 
-export default function Profile() {
+export default function Profile(props: {userId: string | undefined | null}) {
+  const userId = props.userId
+  // console.log(userId)
   // console.log(props.profile)
   // const profile = props.profile
   const [profileDetail, setProfileDetail] = useState<profileDetails>({
@@ -29,7 +32,7 @@ export default function Profile() {
   useEffect(() => {
   const profile = async () => {
       try {
-        const resp = await axios.get(`https://terry-h12-project-portfolio.herokuapp.com/account/profile/?user_id=${window.localStorage.getItem('user_id')}`, {
+        const resp = await axios.get(`https://terry-h12-project-portfolio.herokuapp.com/account/profile/?user_id=${userId}`, {
           headers:{
             'Authorization': `Token ${window.localStorage.getItem('token')}`
           },
@@ -42,13 +45,12 @@ export default function Profile() {
       }
     }
     profile();
-  }, [])
+  }, [userId])
   return(
     <div>
       <h2>{profileDetail.username}</h2>
       <div>{profileDetail.first_name} {profileDetail.last_name}</div>
       <div>{profileDetail.bio}</div>
-      <div>{profileDetail.password}</div>
     </div>
   )
 }

@@ -1,6 +1,6 @@
-import { Link, 
-  // useNavigate 
-} from 'react-router-dom';
+// import { Link, 
+//   // useNavigate 
+// } from 'react-router-dom';
 import { useState, ChangeEvent, useEffect } from 'react';
 import axios from 'axios';
 
@@ -39,24 +39,23 @@ export default function AddProject() {
   },[isPublic])
 
   const addProject = async () => {
-    axios.post('https://terry-h12-project-portfolio.herokuapp.com/project/create/', projectDetail, {
-      headers:{
-        'Authorization': `Token ${window.localStorage.getItem('token')}`
-      },
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    try {
+      const resp = await axios.post('https://terry-h12-project-portfolio.herokuapp.com/project/create/', projectDetail, {
+        headers:{
+          'Authorization': `Token ${window.localStorage.getItem('token')}`
+        },
+      })
+      console.log(resp.data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return(
     <div> 
-      <Link to="/dashboard/profile">
+      {/* <Link to="/dashboard/profile">
         Profile
-      </Link> <br/>
+      </Link> <br/> */}
       <h1>Add New Project</h1>
       <label>Title</label>
       <input type="text" onChange={handleChange("title")}></input><br/>

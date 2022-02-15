@@ -1,14 +1,16 @@
-import { 
-  useState,
-  useEffect 
-} from 'react';
-import axios from 'axios';
+// import { 
+//   useState,
+//   useEffect 
+// } from 'react';
+// import axios from 'axios';
 import { Link, 
   // useNavigate 
 } from 'react-router-dom';
 
 // import Profile from '../Components/Profile';
-import ProjectCard from '../Components/ProjectCard';
+// import ProjectCard from '../Components/ProjectCard';
+import Profile from '../Components/Profile';
+import ProjectList from '../Components/ProjectList';
 
 export interface projectDetails {
   account_id: number;
@@ -33,27 +35,8 @@ export default function DashboardApp() {
   //   github: "",
   //   bio: "",
   // })
-  const [projects, setProjects] = useState<projectDetails[]>([]);
-  useEffect(() => {
-    const userId = window.localStorage.getItem('user_id')
-    const userProjects = async () => {
-      try {
-        const resp = await axios.get(`https://terry-h12-project-portfolio.herokuapp.com/project/profileprojects/?user_id=${userId}`, {
-          headers:{
-            'Authorization': `Token ${window.localStorage.getItem('token')}`
-          },
-        })
-        setProjects(resp.data.results)
-        console.log(resp.data)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-
-    // console.log(profileDetail)
-    // profile();
-    userProjects();
-  },[])
+  
+  const userId = window.localStorage.getItem('user_id') as string;
 
 
   return (
@@ -63,14 +46,22 @@ export default function DashboardApp() {
       <br/>
       <Link to="/dashboard/addProject">
         Add New Project
-      </Link>
+      </Link><br/>
       {/* <Profile profile={profileDetail}/> */}
-      <Link to="/dashboard/profile">
+      {/* <Link to="/dashboard/profile">
         <button>Profile</button>
+      </Link> */}
+      
+      <Link to="/dashboard/searchUsers">
+        Users
       </Link>
-      {projects.map((project, index) => {
-        return (<ProjectCard key={index} project={project}/>)
-      })}
+      
+      <Profile userId={userId}/>
+      <Link to="/dashboard/editProfile">
+        <button>Edit Profile</button>
+      </Link>
+      <button>Change Passowrd</button>
+      <ProjectList userId={userId}/>
     </div>
   );
 }
