@@ -5,7 +5,7 @@ import {
 
 import Login from './Pages/Login';
 // Maybe change?
-import DashboardLayout from './Layouts/Dashboard/DashboardLayout';
+import DashboardLayout from './Layouts/DashboardLayout';
 import LogoOnlyLayout from './Layouts/LogoOnlyLayout';
 
 import Register from './Pages/Register';

@@ -14,7 +14,7 @@ export interface profileDetails {
   bio: string;
 }
 
-export default function Profile(props: {userId: string | undefined | null}) {
+export default function Profile(props: {userId: string}) {
   const userId = props.userId
   // console.log(userId)
   // console.log(props.profile)

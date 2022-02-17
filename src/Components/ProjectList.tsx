@@ -51,9 +51,12 @@ export default function ProjectList(props: {userId: string}) {
 
   return(
     <div>
-      {projects.map((project, index) => {
-        return (<ProjectCard key={index} project={project}/>)
-      })}
+      <div id="projectList">
+        {projects.map((project, index) => {
+          return (<ProjectCard key={index} project={project}/>)
+        })}
+      </div>
+      
     </div>
   )
 }

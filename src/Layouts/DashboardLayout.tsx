@@ -1,9 +1,9 @@
 import { 
-  // Link,
+  Link,
   useNavigate, 
-  Outlet, 
-  Link} from 'react-router-dom';
+  Outlet } from 'react-router-dom';
 import axios from 'axios';
+import Button from '@mui/material/Button';
 
 export default function DashboardLayout() {
   const navigate = useNavigate();  
@@ -28,10 +28,11 @@ export default function DashboardLayout() {
 
   return (
     <>
-      <Link to='/dashboard'>
-        <button>Dashboard</button>
+      <Link to='/dashboard' style={{ textDecoration: 'none' }}>
+        <Button variant="outlined">Dashboard</Button>
       </Link>
-      <button onClick={logout}>logout</button>
+      {/* <button onClick={logout}>logout</button> */}
+      <Button variant="outlined" onClick={logout}>Logout</Button>
       <Outlet />
     </>
   );

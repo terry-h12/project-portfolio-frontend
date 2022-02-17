@@ -6,7 +6,7 @@
 import { Link, 
   // useNavigate 
 } from 'react-router-dom';
-
+import Button from '@mui/material/Button';
 // import Profile from '../Components/Profile';
 // import ProjectCard from '../Components/ProjectCard';
 import Profile from '../Components/Profile';
@@ -57,10 +57,10 @@ export default function DashboardApp() {
       </Link>
       
       <Profile userId={userId}/>
-      <Link to="/dashboard/editProfile">
-        <button>Edit Profile</button>
+      <Link to="/dashboard/editProfile" style={{ textDecoration: 'none' }}>
+        <Button variant="outlined">Edit Profile</Button>
+        <Button variant="outlined">Change Password</Button>
       </Link>
-      <button>Change Passowrd</button>
       <ProjectList userId={userId}/>
     </div>
   );

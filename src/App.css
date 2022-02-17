@@ -41,3 +41,39 @@
   width: 15vw;
   background-color:#61dafb;
 }
+
+#loginForm {
+  display:flex;
+  flex-direction: column;
+  width: 15vw;
+}
+
+#regoForm {
+  display:flex;
+  flex-direction: column;
+  width: 20vw;
+  /* height: 20vh; */
+}
+
+#editProfilePage {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#editProfileForm {
+  display: flex;
+  flex-direction: column;
+  width: 15vw;
+}
+
+#addProjectForm {
+  display: flex;
+  flex-direction: column;
+  width: 15vw;
+}
+
+#projectList {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}

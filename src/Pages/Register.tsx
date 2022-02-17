@@ -3,6 +3,9 @@ import { useState, ChangeEvent } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
 
 import { profileDetails } from "../Components/Profile"
+import TextField from '@mui/material/TextField';
+// import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 export default function Register() {
   // interface RegisterDetails {
@@ -41,7 +44,7 @@ export default function Register() {
   return (
     <div>
       <h1>Rego Page</h1>
-      <label>Email</label>
+      {/* <label>Email</label>
       <input type="text" onChange={handleChange("email")}></input><br/>
       <label>UserName</label>
       <input type="text" onChange={handleChange("username")}></input><br/>
@@ -56,8 +59,19 @@ export default function Register() {
       <label>Github</label>
       <input type="text" onChange={handleChange("github")}></input><br/>
       <label>Bio</label>
-      <input type="text" onChange={handleChange("bio")}></input><br/>
-      <button onClick={register}>rego</button>
+      <input type="text" onChange={handleChange("bio")}></input><br/> */}
+      <div id="regoForm">
+        <TextField id="email" label="Email" variant="standard" onChange={handleChange("email")} />   
+        <TextField id="username" label="Username" variant="standard" onChange={handleChange("username")} />   
+        <TextField id="Password" label="Password" type="password" variant="standard" onChange={handleChange("password")} />   
+        <TextField id="firstname" label="First name" variant="standard" onChange={handleChange("first_name")} />   
+        <TextField id="lastname" label="Last name" variant="standard" onChange={handleChange("last_name")} />   
+        <TextField id="profilepic" label="profile_pic" variant="standard" onChange={handleChange("profile_pic")} />   
+        <TextField id="github" label="Github" variant="standard" onChange={handleChange("github")} />   
+        <TextField id="bio" label="Bio" variant="standard" onChange={handleChange("bio")} />   
+        <Button variant="outlined" onClick={register}>Register</Button>
+      </div>
+      {/* <button onClick={register}>rego</button> */}
     </div>
   );
 }

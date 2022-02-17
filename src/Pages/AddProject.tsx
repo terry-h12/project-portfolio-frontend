@@ -3,6 +3,8 @@
 // } from 'react-router-dom';
 import { useState, ChangeEvent, useEffect } from 'react';
 import axios from 'axios';
+import { TextField, Button, Checkbox, FormControlLabel  } from '@mui/material'
+import '../App.css'
 
 export interface ProjectDetails {
   title: string;
@@ -57,7 +59,7 @@ export default function AddProject() {
         Profile
       </Link> <br/> */}
       <h1>Add New Project</h1>
-      <label>Title</label>
+      {/* <label>Title</label>
       <input type="text" onChange={handleChange("title")}></input><br/>
       <label>Description</label>
       <input type="text" onChange={handleChange("description")}></input><br/>
@@ -69,10 +71,26 @@ export default function AddProject() {
       <input type="text" onChange={handleChange("website")}></input><br/>
       <label>Image</label>
       <input type="text" onChange={handleChange("image_url")}></input><br/>
-      <label>Public?</label>
+      <label>Public?</label> */}
       {/* <input type="text" onChange={handleChange("is_public")}></input><br/> */}
-      <input type="checkbox" onChange={() => setIsPublic(curr => !curr)} checked={isPublic}></input><br/>
-      <button onClick={addProject}>Add project</button>
+      <div id="addProjectForm">
+        <TextField id="title" label="Title " variant="standard" onChange={handleChange("title")} />
+        <TextField id="description" label="Description " variant="standard" onChange={handleChange("description")} />
+        <TextField id="backend_repo" label="Backend Repo " variant="standard" onChange={handleChange("backend_repo")} />
+        <TextField id="frontend_repo" label="Frontend Repo " variant="standard" onChange={handleChange("frontend_repo")} />
+        <TextField id="website" label="Website " variant="standard" onChange={handleChange("website")} />
+        <TextField id="image" label="Image " variant="standard" onChange={handleChange("image_url")} />
+        <FormControlLabel control={<Checkbox defaultChecked onChange={() => setIsPublic(curr => !curr)} />} label="Public" />
+        <Button variant="outlined" onClick={addProject} >Add project</Button>
+      </div>
+      
+
+
+
+      {/* <input type="checkbox" onChange={() => setIsPublic(curr => !curr)} checked={isPublic}></input><br/> */}
+      
+
+      {/* <button onClick={addProject}>Add project</button> */}
     </div>
   );
 }

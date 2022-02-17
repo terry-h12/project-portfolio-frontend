@@ -4,6 +4,8 @@ import axios from 'axios'
 // import { Link } from 'react-router-dom'
 
 import { profileDetails } from '../Components/Profile'
+import { TextField, Button } from '@mui/material'
+import "../App.css"
 
 export default function EditProfile () {
   
@@ -87,23 +89,42 @@ export default function EditProfile () {
     <div>
       <h2>{profileDetail.username}</h2>
       {/* <input type="text" onChange={handleChange("first_name")} value={profileDetail.username}></input><br/> */}
-      <label>Name</label>
+      {/* <label>Name</label>
       <input type="text" onChange={handleChange("first_name")} value={profileDetail.first_name}></input> 
       <input type="text" onChange={handleChange("last_name")} value={profileDetail.last_name}></input><br/>
       <label>Bio</label>
       <input type="text" onChange={handleChange("bio")} value={profileDetail.bio}></input><br/>
       <label>Github</label>
       <input type="text" onChange={handleChange("github")} value={profileDetail.github}></input><br/>
-      {/* <label>Email</label>
-      <input type="text" onChange={handleChange("email")} value={profileDetail.email}></input><br/> */}
+      <label>Email</label>
+      <input type="text" onChange={handleChange("email")} value={profileDetail.email}></input><br/>
       <label>Profile pic</label>
-      <input type="text" onChange={handleChange("profile_pic")} value={profileDetail.profile_pic}></input><br/>
-      <button onClick={editProfile}>Change profile</button>
+      <input type="text" onChange={handleChange("profile_pic")} value={profileDetail.profile_pic}></input><br/> */}
 
-      <h2>Change Password</h2>
-      <label>Password</label>
-      <input type="text" onChange={handleChange("password")} placeholder="New password"></input><br/>
-      <button onClick={changePassword}>Change password</button>
+      <div id="editProfilePage">
+        <div id="editProfileForm">
+          <TextField id="username" label="First name" variant="standard" onChange={handleChange("first_name")} value={profileDetail.first_name} />
+          <TextField id="username" label="Last name" variant="standard" onChange={handleChange("last_name")} value={profileDetail.last_name} />
+          <TextField id="username" label="Bio" variant="standard" onChange={handleChange("bio")} value={profileDetail.bio} />
+          <TextField id="username" label="Github" variant="standard" onChange={handleChange("github")} value={profileDetail.github} />
+          <TextField id="username" label="Pic" variant="standard" onChange={handleChange("profile_pic")} value={profileDetail.profile_pic}/>
+          <Button variant="outlined" onClick={editProfile} >Change profile</Button>
+        </div>
+        <div>
+          <h2>Change Password</h2>
+          {/* <label>Password</label> */}
+          {/* <input type="text" onChange={handleChange("password")} placeholder="New password"></input><br/> */}
+          <TextField id="username" label="Password" variant="standard" onChange={handleChange("username")} />
+          <Button variant="outlined" onClick={changePassword} >Change password</Button>
+        </div>
+      </div>
+      
+      
+      {/* <button onClick={editProfile}>Change profile</button> */}
+
+      
+
+      {/* <button onClick={changePassword}>Change password</button> */}
     </div>
   )
 }

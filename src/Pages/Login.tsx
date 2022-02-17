@@ -1,9 +1,12 @@
 // import { Link } from 'react-router-dom';
 import { useState, ChangeEvent } from 'react';
 import axios from 'axios';
-import { Link, 
-  useNavigate 
-} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+// import Stack from '@mui/material/Stack';
+import '../App.css'; 
+
 export default function Login() {
   const navigate = useNavigate();  
   interface loginDetails {
@@ -34,16 +37,23 @@ export default function Login() {
       console.log(err)
     }
   }
-
+  
   return (
     <div>
       <h1>Login</h1>
-      <label>UserName</label>
+      {/* <label>UserName</label>
       <input type="text" onChange={handleChange("username")}></input><br/>
       <label>Password</label>
-      <input type="text" onChange={handleChange("password")}></input><br/>
-      <button onClick={login}>log</button>
+      <input type="text" onChange={handleChange("password")}></input><br/> */}
+      
+      <div id="loginForm">
+        <TextField id="username" label="Username" variant="standard" onChange={handleChange("username")} />
+        <TextField id="password" label="Password" variant="standard" type="password" onChange={handleChange("password")} />
+        <Button variant="outlined" onClick={login} >Login</Button>
+      </div>
      
+      {/* <button onClick={login}>log</button> */}
+      
       <Link to="/register">
         Get started
       </Link>

@@ -2,7 +2,8 @@ import axios from "axios";
 import { useEffect, useState, ChangeEvent } from "react";
 // import { useLocation } from "react-router-dom"
 import { ProjectDetails } from "./AddProject";
-
+import { TextField, Button, Checkbox, FormControlLabel  } from '@mui/material'
+import '../App.css'
 import { useParams } from "react-router-dom"
 
 // export class CheckboxComponent {
@@ -81,7 +82,7 @@ export default function EditProject() {
   return(
     <div>
       <h1>Edit Project</h1>
-      <label>Title</label>
+      {/* <label>Title</label>
       <input type="text" onChange={handleChange("title") } value={projectDetails.title}></input><br/>
       <label>Description</label>
       <input type="text" onChange={handleChange("description")} value={projectDetails.description}></input><br/>
@@ -94,7 +95,18 @@ export default function EditProject() {
       <label>Image</label>
       <input type="text" onChange={handleChange("image_url")} value={projectDetails.image_url}></input><br/>
       <label>Public?</label>
-      <input type="checkbox" onChange={() => setIsPublic(curr => !curr)} checked={isPublic}></input><br/>
+      <input type="checkbox" onChange={() => setIsPublic(curr => !curr)} checked={isPublic}></input><br/> */}
+      <div id="addProjectForm">
+        <TextField id="title" label="Title " variant="standard" onChange={handleChange("title")} value={projectDetails.title}/>
+        <TextField id="description" label="Description " variant="standard" onChange={handleChange("description")} value={projectDetails.description}/>
+        <TextField id="backend_repo" label="Backend Repo " variant="standard" onChange={handleChange("backend_repo")} value={projectDetails.backend_repo} />
+        <TextField id="frontend_repo" label="Frontend Repo " variant="standard" onChange={handleChange("frontend_repo")} value={projectDetails.frontend_repo} />
+        <TextField id="website" label="Website " variant="standard" onChange={handleChange("website")} value={projectDetails.website} />
+        <TextField id="image" label="Image " variant="standard" onChange={handleChange("image_url")} value={projectDetails.image_url} />
+        <FormControlLabel control={<Checkbox checked={isPublic} onChange={() => setIsPublic(curr => !curr)} />} label="Public" />
+        <Button variant="outlined" onClick={edit}>Edit project</Button>
+      </div>
+
       <button onClick={edit}>Change</button>
     </div>
   )
