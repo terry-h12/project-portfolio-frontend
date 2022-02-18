@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 // import { Link } from 'react-router-dom'
+import Avatar from '@mui/material/Avatar';
 
 export interface profileDetails {
   email: string;
@@ -48,6 +49,7 @@ export default function Profile(props: {userId: string}) {
   }, [userId])
   return(
     <div>
+      <Avatar alt={profileDetail.first_name} src={profileDetail.profile_pic} />
       <h2>{profileDetail.username}</h2>
       <div>{profileDetail.first_name} {profileDetail.last_name}</div>
       <div>{profileDetail.bio}</div>

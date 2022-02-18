@@ -31,7 +31,9 @@ export default function DashboardLayout() {
       <Link to='/dashboard' style={{ textDecoration: 'none' }}>
         <Button variant="outlined">Dashboard</Button>
       </Link>
-      {/* <button onClick={logout}>logout</button> */}
+      <Link to="/dashboard/searchUsers" style={{ textDecoration: 'none' }}>
+        <Button variant="outlined">users</Button>
+      </Link>
       <Button variant="outlined" onClick={logout}>Logout</Button>
       <Outlet />
     </>

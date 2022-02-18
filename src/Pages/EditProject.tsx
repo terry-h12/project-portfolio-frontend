@@ -5,7 +5,7 @@ import { ProjectDetails } from "./AddProject";
 import { TextField, Button, Checkbox, FormControlLabel  } from '@mui/material'
 import '../App.css'
 import { useParams } from "react-router-dom"
-
+import ImageUploading from 'react-images-uploading';
 // export class CheckboxComponent {
 //   checkMe = "N";
 //   isChecked = true;
@@ -50,6 +50,14 @@ export default function EditProject() {
         // console.log(resp.data)
         setProjectDetails(resp.data)
         setIsPublic(resp.data.is_public)
+        if (resp.data.image_url !== "") {
+          const image = [
+            {data_url: resp.data.image_url}
+          ]
+          setImages(image)
+        }
+        
+        // setImages(["data_url" = ])
       } catch (err) {
         console.log(err)
       }
@@ -79,6 +87,22 @@ export default function EditProject() {
     setProjectDetails({ ...projectDetails, [prop]: event.target.value });
   };
 
+  // const [currImage, setCurrImage] = useState("");
+  const [images, setImages] = useState<any>([]);
+  const onChange = (imageList: any, addUpdateIndex: any) => {
+    // data for submit
+    // console.log(imageList, addUpdateIndex);
+    setImages(imageList);
+  };
+
+  useEffect(()=> {
+    if (images[0] !== undefined) {
+      setProjectDetails((projectDetails) => ({...projectDetails, image_url: images[0]["data_url"]}))
+    } else {
+      setProjectDetails((projectDetails) => ({...projectDetails, image_url: ""}))
+    }
+  },[images])
+
   return(
     <div>
       <h1>Edit Project</h1>
@@ -102,7 +126,47 @@ export default function EditProject() {
         <TextField id="backend_repo" label="Backend Repo " variant="standard" onChange={handleChange("backend_repo")} value={projectDetails.backend_repo} />
         <TextField id="frontend_repo" label="Frontend Repo " variant="standard" onChange={handleChange("frontend_repo")} value={projectDetails.frontend_repo} />
         <TextField id="website" label="Website " variant="standard" onChange={handleChange("website")} value={projectDetails.website} />
-        <TextField id="image" label="Image " variant="standard" onChange={handleChange("image_url")} value={projectDetails.image_url} />
+        {/* <TextField id="image" label="Image " variant="standard" onChange={handleChange("image_url")} value={projectDetails.image_url} /> */}
+        <ImageUploading
+        multiple
+        value={images}
+        onChange={onChange}
+        maxNumber={1}
+        dataURLKey="data_url"
+        >
+          {({
+            imageList,
+            onImageUpload,
+            onImageRemoveAll,
+            onImageUpdate,
+            onImageRemove,
+            isDragging,
+            dragProps,
+          }) => (
+            // write your building UI
+            <div className="upload__image-wrapper">
+              <Button
+                style={isDragging ? { color: 'red' } : undefined}
+                onClick={onImageUpload}
+                {...dragProps}
+                variant="outlined"
+              >
+                Click or Drop here
+              </Button>
+              {imageList.map((image, index) => (
+                <div key={index} className="image-item">
+                    <img src={image['data_url']} alt="" width="70%" />
+                  <div className="image-item__btn-wrapper">
+                    <Button size="small" variant="outlined" onClick={() => onImageUpdate(index)}>Update</Button>
+                    &nbsp;
+                    <Button size="small" variant="outlined" onClick={() => onImageRemove(index)}>Remove</Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </ImageUploading>
+        
         <FormControlLabel control={<Checkbox checked={isPublic} onChange={() => setIsPublic(curr => !curr)} />} label="Public" />
         <Button variant="outlined" onClick={edit}>Edit project</Button>
       </div>

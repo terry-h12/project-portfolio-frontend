@@ -46,7 +46,6 @@ export default function ProjectList(props: {userId: string}) {
     } else {
       publicProjects();
     }
-    
   },[userId])
 
   return(

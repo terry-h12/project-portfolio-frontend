@@ -49,10 +49,6 @@ export default function DashboardApp() {
       {/* <Link to="/dashboard/profile">
         <button>Profile</button>
       </Link> */}
-      
-      <Link to="/dashboard/searchUsers">
-        Users
-      </Link>
       <div id="dashboard">
         <div id="userProfile">
           <Profile userId={userId}/>

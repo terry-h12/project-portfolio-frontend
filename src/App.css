@@ -79,7 +79,8 @@
 #addProjectForm {
   display: flex;
   flex-direction: column;
-  width: 15vw;
+  margin: auto;
+  width: 30vw;
 }
 
 #projectList {
