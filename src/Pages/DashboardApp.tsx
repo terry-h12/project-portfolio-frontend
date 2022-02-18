@@ -41,12 +41,10 @@ export default function DashboardApp() {
 
   return (
     <div>
-      Dashboard
+      {/* Dashboard */}
       {/* <button onClick={profile}>profile</button> <br/> */}
-      <br/>
-      <Link to="/dashboard/addProject">
-        Add New Project
-      </Link><br/>
+      {/* <br/>
+      <br/> */}
       {/* <Profile profile={profileDetail}/> */}
       {/* <Link to="/dashboard/profile">
         <button>Profile</button>
@@ -55,13 +53,20 @@ export default function DashboardApp() {
       <Link to="/dashboard/searchUsers">
         Users
       </Link>
+      <div id="dashboard">
+        <div id="userProfile">
+          <Profile userId={userId}/>
+          <Link to="/dashboard/editProfile" style={{ textDecoration: 'none' }}>
+            <Button variant="outlined">Edit Profile</Button>
+            {/* <Button variant="outlined">Change Password</Button> */}
+          </Link>
+          <Link to="/dashboard/addProject" style={{ textDecoration: 'none' }}>
+            <Button variant="outlined">Add Project</Button>
+          </Link>
+        </div>
+        <ProjectList userId={userId}/>
+      </div>
       
-      <Profile userId={userId}/>
-      <Link to="/dashboard/editProfile" style={{ textDecoration: 'none' }}>
-        <Button variant="outlined">Edit Profile</Button>
-        <Button variant="outlined">Change Password</Button>
-      </Link>
-      <ProjectList userId={userId}/>
     </div>
   );
 }

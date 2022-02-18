@@ -37,9 +37,19 @@
   }
 }
 
+#ProjectTitle {
+  font-size: 22px;
+}
+
 #Project-Card {
-  width: 15vw;
-  background-color:#61dafb;
+  /* width: 15vw; */
+  /* display: flex; */
+  background-color:#f9f9f9;
+  /* flex-direction: row; */
+  margin-bottom: 2vh;
+  padding: 2%;
+  border-radius: 10px;
+  
 }
 
 #loginForm {
@@ -73,7 +83,27 @@
 }
 
 #projectList {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* flex-wrap: wrap; */
+  /* width: 20vw; */
+  width: 50%;
+  margin: auto;
+  position: absolute;
+  right: 10%;
+}
+
+#projectDate{
+  margin: 2%;
+  float: right;
+}
+
+#dashboard {
   display: flex;
   justify-content: space-evenly;
-  flex-wrap: wrap;
+}
+
+#userProfile {
+  position: fixed;
+  left: 7%;
 }
