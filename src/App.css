@@ -64,6 +64,8 @@ body {
 #projectImg {
   display: flex;
   justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #Project-Card {
@@ -94,6 +96,7 @@ body {
 
 #viewDescription {
   word-wrap: break-word;
+  margin-bottom: 10px;
 }
 
 #repoList {
@@ -247,24 +250,7 @@ body {
   width: 33vw;
   padding: 15px 10px;
   border-radius: 10px;
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-#AddProjectPage {
-  background-color:#B9E2EB;
-  margin: auto;
-  width: 33vw;
-  padding: 15px 10px;
-  border-radius: 10px;
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  margin-top: 1vh;
 }
 
 #EditProjectPage {
@@ -275,7 +261,7 @@ body {
   border-radius: 10px;
   position: absolute;
   left: 50%;
-  top: 60%;
+  top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
@@ -407,7 +393,7 @@ body {
 }
 
 #ProjectSearch {
-  width: 41vw;
+  width: 43vw;
 }
 
 #AddProjectButton  {

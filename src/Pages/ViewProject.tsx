@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom"
 import { ProjectDetails } from "./AddProject";
 import axios from "axios";
+import { CircularProgress  } from '@mui/material'
 
 export default function ViewProject() {
   const { projectId } = useParams();
-
+  const [loading, setLoading] = useState(true);
   const[projectDetails, setProjectDetails] = useState<ProjectDetails>( {
     title: "",
     image_url: "",
@@ -26,8 +27,10 @@ export default function ViewProject() {
           },
         })
         setProjectDetails(resp.data)
+        setLoading(false);
       } catch (err) {
         console.log(err)
+        setLoading(false);
       }
     }
     userProjects();
@@ -48,27 +51,41 @@ export default function ViewProject() {
         </div> :
         <></>
       }
-      <div id="ViewProjectInfo">
-        <div id="repoTitle">Git Repositories</div>
-        <ul id="repoList">
-            {
-              projectDetails.frontend_repo !==  ""  ? 
-              <li>
-                <a href={projectDetails.frontend_repo} target="_blank" rel="noopener noreferrer">Frontend</a> 
-              </li> :
-              <></>
-            }
-            {
-              projectDetails.backend_repo !==  ""  ? 
-              <li>
-                <a href={projectDetails.backend_repo} target="_blank" rel="noopener noreferrer">Backend</a> 
-              </li> :
-              <></>
-            }
-        </ul>
-        <a href={projectDetails.website} target="_blank" rel="noopener noreferrer">Website</a>
-        <div id="viewDescription">{projectDetails.description}</div>
-      </div>
+      {
+        !loading ? 
+        <div id="ViewProjectInfo">
+          <div id="repoTitle">Description</div>
+          <div id="viewDescription">{projectDetails.description}</div>
+          <div id="repoTitle">Links</div>
+          <ul id="repoList">
+              {
+                projectDetails.frontend_repo !==  ""  ? 
+                <li>
+                  <a href={projectDetails.frontend_repo} target="_blank" rel="noopener noreferrer">Frontend</a> 
+                </li> :
+                <></>
+              }
+              {
+                projectDetails.backend_repo !==  ""  ? 
+                <li>
+                  <a href={projectDetails.backend_repo} target="_blank" rel="noopener noreferrer">Backend</a> 
+                </li> :
+                <></>
+              }
+              {
+                projectDetails.website !==  ""  ? 
+                <li>
+                  <a href={projectDetails.website} target="_blank" rel="noopener noreferrer">Website</a>
+                </li> :
+                <></>
+              }
+          </ul>
+        </div>
+        :
+        <div id="loading">
+          <CircularProgress />
+        </div>
+      }
     </div>
   )
 }

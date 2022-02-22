@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import UserCard from '../Components/UserCard'
 import { TextField, CircularProgress } from '@mui/material'
+
 export interface UserDetails {
   email: string;
   username: string;

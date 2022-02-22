@@ -1,14 +1,17 @@
 import axios from "axios";
 import { useEffect, useState, ChangeEvent } from "react";
 import { ProjectDetails } from "./AddProject";
-import { TextField, Button, Checkbox, FormControlLabel  } from '@mui/material'
+import { TextField, Button, Checkbox, FormControlLabel, CircularProgress  } from '@mui/material'
 import '../App.css'
 import { useParams, useNavigate } from "react-router-dom"
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { AddHTTP } from '../Components/Utlis';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function EditProject() {
   const { projectId } = useParams();
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();  
   const[projectDetails, setProjectDetails] = useState<ProjectDetails>( {
     title: "",
@@ -49,8 +52,10 @@ export default function EditProject() {
           ]
           setImages(image as never[])
         }
+        setLoading(false);
       } catch (err) {
         console.log(err)
+        setLoading(false);
       }
     }
     userProjects();
@@ -108,56 +113,63 @@ export default function EditProject() {
   return(
     <div id="EditProjectPage">
       <div id="EditProjectTitle">Edit Project</div>
-      <div id="EditProjectForm">
-        <TextField id="title" label="Title " variant="outlined" onChange={handleChange("title")} value={projectDetails.title}/>
-        <TextField id="description" label="Description" multiline rows={4} variant="outlined" onChange={handleChange("description")} value={projectDetails.description}/>
-        <TextField id="backend_repo" label="Backend Repo " variant="outlined" onChange={handleChange("backend_repo")} value={projectDetails.backend_repo} />
-        <TextField id="frontend_repo" label="Frontend Repo " variant="outlined" onChange={handleChange("frontend_repo")} value={projectDetails.frontend_repo} />
-        <TextField id="website" label="Website " variant="outlined" onChange={handleChange("website")} value={projectDetails.website} />
-        <ImageUploading
-        multiple
-        value={images}
-        onChange={onChange}
-        maxNumber={1}
-        dataURLKey="data_url"
-        >
-          {({
-            imageList,
-            onImageUpload,
-            onImageUpdate,
-            onImageRemove,
-            isDragging,
-            dragProps,
-          }) => (
-            <div className="upload__image-wrapper">
-              <span>Upload Image: </span> 
-              <Button
-                style={isDragging ? { color: 'red' } : undefined}
-                onClick={onImageUpload}
-                {...dragProps}
-                variant="outlined"
-              >
-                Click or Drop here
-              </Button>
-              {imageList.map((image, index) => (
-                <div key={index} className="image-item">
-                    <img src={image['data_url']} alt="" width="70%" />
-                  <div className="image-item__btn-wrapper">
-                    <Button size="small" variant="outlined" onClick={() => onImageUpdate(index)}>Update</Button>
-                    &nbsp;
-                    <Button size="small" variant="outlined" onClick={() => onImageRemove(index)}>Remove</Button>
+      {
+        !loading ? 
+        <div id="EditProjectForm">
+          <TextField id="title" label="Title " variant="outlined" onChange={handleChange("title")} value={projectDetails.title}/>
+          <TextField id="description" label="Description" multiline rows={4} variant="outlined" onChange={handleChange("description")} value={projectDetails.description}/>
+          <TextField id="frontend_repo" label="Frontend Repo " variant="outlined" onChange={handleChange("frontend_repo")} value={projectDetails.frontend_repo} />
+          <TextField id="backend_repo" label="Backend Repo " variant="outlined" onChange={handleChange("backend_repo")} value={projectDetails.backend_repo} />
+          <TextField id="website" label="Website " variant="outlined" onChange={handleChange("website")} value={projectDetails.website} />
+          <ImageUploading
+          multiple
+          value={images}
+          onChange={onChange}
+          maxNumber={1}
+          dataURLKey="data_url"
+          >
+            {({
+              imageList,
+              onImageUpload,
+              onImageUpdate,
+              onImageRemove,
+              isDragging,
+              dragProps,
+            }) => (
+              <div className="upload__image-wrapper">
+                <span>Upload Image: </span> 
+                <Button
+                  style={isDragging ? { color: 'red' } : undefined}
+                  onClick={onImageUpload}
+                  {...dragProps}
+                  variant="outlined"
+                >
+                  Click or Drop here
+                </Button>
+                {imageList.map((image, index) => (
+                  <div key={index} className="image-item">
+                      <img src={image['data_url']} alt="" width="70%" />
+                    <div className="image-item__btn-wrapper">
+                      <Button size="small" variant="outlined" onClick={() => onImageUpdate(index)}>Update</Button>
+                      &nbsp;
+                      <Button size="small" color="error" variant="outlined" onClick={() => onImageRemove(index)}>Remove</Button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </ImageUploading>
-        <FormControlLabel control={<Checkbox checked={isPublic} onChange={() => setIsPublic(curr => !curr)} />} label="Public" />
-        <div>
-          <Button variant="outlined" onClick={edit}>Edit project</Button>
-          <Button variant="outlined" onClick={deleteProject} color="secondary">Delete project</Button>
+                ))}
+              </div>
+            )}
+          </ImageUploading>
+          <FormControlLabel control={<Checkbox checked={isPublic} onChange={() => setIsPublic(curr => !curr)} />} label="Public" />
+          <div>
+            <Button variant="outlined" onClick={edit}><EditIcon /> Edit</Button>
+            <Button variant="outlined" onClick={deleteProject} color="error"><DeleteIcon /> Delete</Button>
+          </div>
         </div>
-      </div>
+        :
+        <div id="loading">
+          <CircularProgress />
+        </div>
+      }
     </div>
   )
 }

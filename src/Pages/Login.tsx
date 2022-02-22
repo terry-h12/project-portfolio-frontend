@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom';
 import { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -42,7 +41,7 @@ export default function Login() {
   
   const ColourButton = styled(Button)<ButtonProps>(() => ({
     color: "#FBFBFB",
-    backgroundColor: "#00C0D0",
+    backgroundColor: "#31BFF3",
     '&:hover': {
       backgroundColor: "#8DE0E0",
     },
@@ -50,9 +49,9 @@ export default function Login() {
 
   const ColourRegoButton = styled(Button)<ButtonProps>(() => ({
     color: "#FBFBFB",
-    backgroundColor: "#9EE362",
+    backgroundColor: "#79D45E",
     '&:hover': {
-      backgroundColor: "#BBF0D6",
+      backgroundColor: "#92F294",
     },
   }));
 

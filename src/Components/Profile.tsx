@@ -3,7 +3,7 @@ import axios from 'axios'
 import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
 import GitHubIcon from '@mui/icons-material/GitHub';
-
+import { CircularProgress } from '@mui/material'
 export interface profileDetails {
   email: string;
   username: string;
@@ -17,6 +17,7 @@ export interface profileDetails {
 
 export default function Profile(props: {userId: string}) {
   const userId = props.userId
+  const [loading, setLoading] = useState(true);
   const [profileDetail, setProfileDetail] = useState<profileDetails>({
     email: "",
     username: "",
@@ -36,8 +37,10 @@ export default function Profile(props: {userId: string}) {
           },
         })
         setProfileDetail(resp.data)
+        setLoading(false);
       } catch (err) {
         console.log(err)
+        setLoading(false);
       }
     }
     profile();
@@ -63,7 +66,12 @@ export default function Profile(props: {userId: string}) {
             <a href={profileDetail.github} target="_blank" rel="noopener noreferrer"><GitHubIcon /></a>
           </div>
         </div>
-        <div id="profileBio">{profileDetail.bio}</div>
+        { 
+          !loading ? <div id="profileBio">{profileDetail.bio}</div> :
+          <div id="loading">
+            <CircularProgress />
+          </div>
+        }
       </div>
     </div>
   )
