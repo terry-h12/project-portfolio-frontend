@@ -1,8 +1,8 @@
-// import { profileDetails } from "../Pages/DashboardApp"
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-// import { Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
+import { Link } from 'react-router-dom';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 export interface profileDetails {
   email: string;
@@ -17,9 +17,6 @@ export interface profileDetails {
 
 export default function Profile(props: {userId: string}) {
   const userId = props.userId
-  // console.log(userId)
-  // console.log(props.profile)
-  // const profile = props.profile
   const [profileDetail, setProfileDetail] = useState<profileDetails>({
     email: "",
     username: "",
@@ -38,9 +35,7 @@ export default function Profile(props: {userId: string}) {
             'Authorization': `Token ${window.localStorage.getItem('token')}`
           },
         })
-        // console.log(resp.data)
         setProfileDetail(resp.data)
-        // console.log(profileDetail)
       } catch (err) {
         console.log(err)
       }
@@ -49,10 +44,27 @@ export default function Profile(props: {userId: string}) {
   }, [userId])
   return(
     <div>
-      <Avatar alt={profileDetail.first_name} src={profileDetail.profile_pic} />
-      <h2>{profileDetail.username}</h2>
-      <div>{profileDetail.first_name} {profileDetail.last_name}</div>
-      <div>{profileDetail.bio}</div>
+      <div id="profileCard">
+        <div id="profileCardInfo">
+          <Avatar alt={profileDetail.first_name} src={profileDetail.profile_pic} />
+          <div id="userCardText">
+            <div id="profileUsername">
+              {
+                userId === window.localStorage.getItem('user_id') ?
+                <Link to="/dashboard/editProfile">
+                  {profileDetail.username}
+                </Link>  : 
+                <>{profileDetail.username}</>
+              }
+            </div>
+            <div>{profileDetail.first_name} {profileDetail.last_name}</div>
+          </div>
+          <div id="github">
+            <a href={profileDetail.github} target="_blank" rel="noopener noreferrer"><GitHubIcon /></a>
+          </div>
+        </div>
+        <div id="profileBio">{profileDetail.bio}</div>
+      </div>
     </div>
   )
 }

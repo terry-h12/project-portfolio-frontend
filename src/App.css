@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+html {
+  background-color: #F3F3F3;
+}
+
+body {
+  font-family: 'Oxygen', sans-serif;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -41,28 +49,151 @@
   font-size: 22px;
 }
 
+#AddProjectTitle, #EditProjectTitle {
+  font-weight: bold;
+  font-size: 22px;
+  margin-left: 2vh;
+}
+
+#ViewProjectTitle {
+  font-weight: bold;
+  font-size: 26px;
+  text-align: center;
+}
+
+#projectImg {
+  display: flex;
+  justify-content: center;
+}
+
 #Project-Card {
-  /* width: 15vw; */
-  /* display: flex; */
   background-color:#f9f9f9;
-  /* flex-direction: row; */
   margin-bottom: 2vh;
   padding: 2%;
   border-radius: 10px;
   
 }
 
+#ViewProjectInfo{
+  background-color:#F3F3F3;
+  padding: 2%;
+  border-radius: 10px;
+}
+
+#repoTitle {
+  font-weight: bold;
+}
+
+#viewProject {
+  margin: auto;
+  width: 30vw;
+  background-color:#B9E2EB;
+  padding: 15px 10px;
+  border-radius: 10px;
+}
+
+#viewDescription {
+  word-wrap: break-word;
+}
+
+#repoList {
+  margin-top: 5px;
+}
+
 #loginForm {
   display:flex;
+  margin-bottom: 10px;
   flex-direction: column;
   width: 15vw;
+  background-color:#F3F3F3;
+  border-radius: 10px;
+} 
+
+#loginTitle {
+  font-weight: bold;
+  font-size: larger;
+  margin-bottom: 5px;
+}
+
+#regoTitle {
+  font-weight: bold;
+  font-size: larger;
+  margin-bottom: 5px;
+  float: right;
+  margin-right: 2vh;
+}
+
+#loginPage {
+  width: 15vw;
+  background-color:#B9E2EB;
+  padding: 10px 15px;
+  border-radius: 10px;
+  position: absolute;
+  left: 72%;
+  top: 65%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#loginBackground {
+  width: 45%;
+  background-color:#B9E2EB;
+  height: 100%;
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#loginText {
+  position: absolute;
+  left: 50%;
+  bottom: 1%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color:#F3F3F3;
+  padding: 10px 7px;
+  border-radius: 10px;
+}
+
+#loginInfo {
+  position: absolute;
+  width: 254px;
+  left: 55%;
+  top: 25%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 3rem;
 }
 
 #regoForm {
   display:flex;
   flex-direction: column;
   width: 20vw;
-  /* height: 20vh; */
+  background-color:#F3F3F3;
+  padding: 15px 10px;
+  border-radius: 10px;
+}
+
+#regoPage {
+  background-color:#B9E2EB;
+  width: 22vw;
+  padding: 15px 10px;
+  margin: auto;
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#regoBackground {
+  background-color:#B9E2EB;
+  width: 50%;
+  height: 100vh;
 }
 
 #editProfilePage {
@@ -70,33 +201,111 @@
   justify-content: space-evenly;
 }
 
+#editProfile {
+  margin-top: 5%;
+  background-color:#F6E2E5;
+  width: 20.3%;
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
 #editProfileForm {
   display: flex;
   flex-direction: column;
-  width: 15vw;
+  width: 20vw;
+  background-color:#f9f9f9;
+  border-radius: 10px;
+  padding: 6px 3px;
 }
 
-#addProjectForm {
+#changePassword {
   display: flex;
   flex-direction: column;
+  background-color:#f9f9f9;
+  height: 30%;
+  border-radius: 10px;
+  padding: 5px 3px;
+}
+
+#PasswordTitle, #EditProfileTitle {
+  font-weight: bold;
+  font-size: 22px;
+  text-align: center;
+}
+
+#changePasswordBackground {
+  margin-top: 15%;
+  background-color:#B9E2EB;
+  height: 30%;
+  border-radius: 10px;
+  padding: 8px 7px;
+}
+
+#AddProjectPage {
+  background-color:#B9E2EB;
   margin: auto;
+  width: 33vw;
+  padding: 15px 10px;
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#AddProjectPage {
+  background-color:#B9E2EB;
+  margin: auto;
+  width: 33vw;
+  padding: 15px 10px;
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#EditProjectPage {
+  background-color:#B9E2EB;
+  margin: auto;
+  width: 33vw;
+  padding: 15px 10px;
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#AddProjectForm, #EditProjectForm{
+  display: flex;
+  flex-direction: column;
   width: 30vw;
+  background-color:#F3F3F3;
+  padding: 15px 10px;
+  margin: auto;
+  border-radius: 10px;
 }
 
 #projectList {
-  /* display: flex; */
-  /* justify-content: center; */
-  /* flex-wrap: wrap; */
-  /* width: 20vw; */
   width: 50%;
   margin: auto;
   position: absolute;
   right: 10%;
+  background-color:#F6E2E5;
+  padding: 15px 10px;
+  border-radius: 10px;
 }
 
 #projectDate{
   margin: 2%;
   float: right;
+}
+#dashboardProjects {
+  background-color:#B9E2EB;
 }
 
 #dashboard {
@@ -105,6 +314,190 @@
 }
 
 #userProfile {
+  margin-top: 2vh;
   position: fixed;
   left: 7%;
+}
+
+.dashboardLayout {
+  text-decoration: none;
+  float: right;
+}
+
+#userCard {
+  display: flex;
+  background-color:#B9E2EB;
+  width: 15vw;
+  padding: 10px 7px;
+  align-items: center;
+  border-radius: 10px;
+  margin-bottom: 2vh;
+  margin-right: 2vw;
+  margin-left: 2vw;
+}
+
+#profileCard {
+  background-color:#B9E2EB;  
+  width: 20vw;
+  padding: 10px 7px;
+  align-items: center;
+  border-radius: 10px;
+}
+
+#emptyProjects {
+  font-size: large;
+  font-weight: bold;
+  margin: auto;
+}
+
+#userCardText {
+  margin-left: 5px;
+  background-color:#f9f9f9;
+  width: 100%;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+#userCardPic {
+  display: flex;
+  margin-left: 6%;
+  align-items: center;
+}
+
+#profileCardInfo {
+  display: flex;
+  background-color:#f9f9f9;
+  padding: 7px 4px;
+  border-radius: 10px;
+  margin-bottom: 1vh;
+  align-items: center;
+}
+
+#profileBio {
+  word-wrap: break-word;
+}
+
+#profileUsername {
+  font-weight: bold;
+}
+
+#userList {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+#userSearchbar {
+  margin: auto;
+  width: 200px;
+  margin-bottom: 2vh;
+}
+
+#loading {
+  width: 40px;
+  margin: auto;
+  margin-top: 5px;
+}
+
+#ProjectControlPanel {
+  display: flex;
+  width: 50vw;
+  background-color: white;
+  margin-bottom: 1vh;
+}
+
+#ProjectSearch {
+  width: 41vw;
+}
+
+#AddProjectButton  {
+  height: 56px;
+}
+
+#ProjectSearchUser {
+  width: 50vw;
+}
+
+hr.solid {
+  border-top: 3px solid #F3F3F3;
+}
+
+#LoginButton {
+  width: 15vw;
+}
+
+#RegoToLogin {
+  float: right;
+  margin-right: 10px; 
+  margin-top: 10px;
+}
+
+#BackToLogin {
+  font-size: 2.5rem;
+}
+
+#ErrorPage {
+  margin: auto;
+  width: 40vw;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#ErrorTitle {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+#github {
+  display: flex;
+  align-items: center;
+  margin-right: 1vw;
+}
+
+#AboutBackground {
+  background-color:#B9E2EB;
+  margin: auto; 
+  margin-top: 1.5vh;
+  width: 35vw;
+  text-align: center;
+  padding: 10px 7px;
+  border-radius: 10px;
+}
+
+#AboutGithub {
+  font-size: 10rem;
+}
+
+#AboutInfo {
+  background-color:#f9f9f9;
+  padding: 5px 3px;
+  border-radius: 10px;
+}
+
+#AboutLinkedIn {
+  color: #0077b5;
+  font-size: 10rem;
+  margin: auto;
+}
+
+a { 
+  color: inherit; 
+} 
+
+#Socials {
+  width: 60vh;
+  margin: auto;
+}
+#SocialsTitle {
+  text-align: center;
+  font-size: 3rem;
+}
+
+#SocialsIcon {
+  display: flex;
+  justify-content: space-evenly;
 }

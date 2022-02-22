@@ -1,18 +1,15 @@
 import axios from "axios";
 import { useEffect, useState, ChangeEvent } from "react";
-// import { useLocation } from "react-router-dom"
 import { ProjectDetails } from "./AddProject";
 import { TextField, Button, Checkbox, FormControlLabel  } from '@mui/material'
 import '../App.css'
-import { useParams } from "react-router-dom"
-import ImageUploading from 'react-images-uploading';
-// export class CheckboxComponent {
-//   checkMe = "N";
-//   isChecked = true;
-// }
+import { useParams, useNavigate } from "react-router-dom"
+import ImageUploading, { ImageListType } from 'react-images-uploading';
+import { AddHTTP } from '../Components/Utlis';
 
 export default function EditProject() {
   const { projectId } = useParams();
+  const navigate = useNavigate();  
   const[projectDetails, setProjectDetails] = useState<ProjectDetails>( {
     title: "",
     image_url: "",
@@ -23,9 +20,8 @@ export default function EditProject() {
     website: "",
     account_id: `${window.localStorage.getItem('username')}`,
   });
-
   const [isPublic, setIsPublic] = useState(false);
-
+  const [images, setImages] = useState([]);
   const changeDetails = {
     title: projectDetails.title,
     image_url: projectDetails.image_url,
@@ -38,7 +34,6 @@ export default function EditProject() {
     is_public: isPublic,
   }
   useEffect(() => {
-    // const userId = window.localStorage.getItem('user_id')
     const userProjects = async () => {
       try {
         const resp = await axios.get(`https://terry-h12-project-portfolio.herokuapp.com/project/getproject/?project_id=${projectId}`, {
@@ -46,18 +41,14 @@ export default function EditProject() {
             'Authorization': `Token ${window.localStorage.getItem('token')}`
           },
         })
-        // setUserProjects(resp.data.results)
-        // console.log(resp.data)
         setProjectDetails(resp.data)
         setIsPublic(resp.data.is_public)
         if (resp.data.image_url !== "") {
           const image = [
             {data_url: resp.data.image_url}
           ]
-          setImages(image)
+          setImages(image as never[])
         }
-        
-        // setImages(["data_url" = ])
       } catch (err) {
         console.log(err)
       }
@@ -66,33 +57,28 @@ export default function EditProject() {
   }, [projectId])
 
   const edit = async () => { 
-    // console.log(isPublic)
     try {
-      const resp = await axios.put('https://terry-h12-project-portfolio.herokuapp.com/project/change/', changeDetails, 
+      await axios.put('https://terry-h12-project-portfolio.herokuapp.com/project/change/', changeDetails, 
       {
         headers:{
           'Authorization': `Token ${window.localStorage.getItem('token')}`
         },
       })
-      // setUserProjects(resp.data.results)
-      console.log(resp)
-      // setProjectDetail(resp.data)
+      navigate(`/dashboard/viewproject/${projectId}`)
     } catch (err) {
       console.log(err)
     }
   }
 
   const handleChange = (prop: keyof ProjectDetails) => (event: ChangeEvent<HTMLInputElement>) => {
-    // setNewProjectDetail({ ...newProjectDetail, [prop]: event.target.value });
+    if (prop === "backend_repo" || prop === "frontend_repo" || prop === "website") {
+      event.target.value = AddHTTP(event.target.value)
+    }
     setProjectDetails({ ...projectDetails, [prop]: event.target.value });
   };
-
-  // const [currImage, setCurrImage] = useState("");
-  const [images, setImages] = useState<any>([]);
-  const onChange = (imageList: any, addUpdateIndex: any) => {
-    // data for submit
-    // console.log(imageList, addUpdateIndex);
-    setImages(imageList);
+ 
+  const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
+    setImages(imageList as never[]);
   };
 
   useEffect(()=> {
@@ -101,32 +87,33 @@ export default function EditProject() {
     } else {
       setProjectDetails((projectDetails) => ({...projectDetails, image_url: ""}))
     }
-  },[images])
+  }, [images])
+
+  const deleteProject = async () => { 
+    try {
+      await axios.delete('https://terry-h12-project-portfolio.herokuapp.com/project/delete/', {
+        headers:{
+          'Authorization': `Token ${window.localStorage.getItem('token')}`
+        }, 
+        data: {
+          "project_id": projectId
+        }
+      })
+      navigate('/dashboard')
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return(
-    <div>
-      <h1>Edit Project</h1>
-      {/* <label>Title</label>
-      <input type="text" onChange={handleChange("title") } value={projectDetails.title}></input><br/>
-      <label>Description</label>
-      <input type="text" onChange={handleChange("description")} value={projectDetails.description}></input><br/>
-      <label>Backend Repo</label>
-      <input type="text" onChange={handleChange("backend_repo")} value={projectDetails.backend_repo}></input><br/>
-      <label>Frontend Repo</label>
-      <input type="text" onChange={handleChange("frontend_repo")} value={projectDetails.frontend_repo}></input><br/>
-      <label>Website</label>
-      <input type="text" onChange={handleChange("website")} value={projectDetails.website}></input><br/>
-      <label>Image</label>
-      <input type="text" onChange={handleChange("image_url")} value={projectDetails.image_url}></input><br/>
-      <label>Public?</label>
-      <input type="checkbox" onChange={() => setIsPublic(curr => !curr)} checked={isPublic}></input><br/> */}
-      <div id="addProjectForm">
-        <TextField id="title" label="Title " variant="standard" onChange={handleChange("title")} value={projectDetails.title}/>
-        <TextField id="description" label="Description " variant="standard" onChange={handleChange("description")} value={projectDetails.description}/>
-        <TextField id="backend_repo" label="Backend Repo " variant="standard" onChange={handleChange("backend_repo")} value={projectDetails.backend_repo} />
-        <TextField id="frontend_repo" label="Frontend Repo " variant="standard" onChange={handleChange("frontend_repo")} value={projectDetails.frontend_repo} />
-        <TextField id="website" label="Website " variant="standard" onChange={handleChange("website")} value={projectDetails.website} />
-        {/* <TextField id="image" label="Image " variant="standard" onChange={handleChange("image_url")} value={projectDetails.image_url} /> */}
+    <div id="EditProjectPage">
+      <div id="EditProjectTitle">Edit Project</div>
+      <div id="EditProjectForm">
+        <TextField id="title" label="Title " variant="outlined" onChange={handleChange("title")} value={projectDetails.title}/>
+        <TextField id="description" label="Description" multiline rows={4} variant="outlined" onChange={handleChange("description")} value={projectDetails.description}/>
+        <TextField id="backend_repo" label="Backend Repo " variant="outlined" onChange={handleChange("backend_repo")} value={projectDetails.backend_repo} />
+        <TextField id="frontend_repo" label="Frontend Repo " variant="outlined" onChange={handleChange("frontend_repo")} value={projectDetails.frontend_repo} />
+        <TextField id="website" label="Website " variant="outlined" onChange={handleChange("website")} value={projectDetails.website} />
         <ImageUploading
         multiple
         value={images}
@@ -137,14 +124,13 @@ export default function EditProject() {
           {({
             imageList,
             onImageUpload,
-            onImageRemoveAll,
             onImageUpdate,
             onImageRemove,
             isDragging,
             dragProps,
           }) => (
-            // write your building UI
             <div className="upload__image-wrapper">
+              <span>Upload Image: </span> 
               <Button
                 style={isDragging ? { color: 'red' } : undefined}
                 onClick={onImageUpload}
@@ -166,12 +152,12 @@ export default function EditProject() {
             </div>
           )}
         </ImageUploading>
-        
         <FormControlLabel control={<Checkbox checked={isPublic} onChange={() => setIsPublic(curr => !curr)} />} label="Public" />
-        <Button variant="outlined" onClick={edit}>Edit project</Button>
+        <div>
+          <Button variant="outlined" onClick={edit}>Edit project</Button>
+          <Button variant="outlined" onClick={deleteProject} color="secondary">Delete project</Button>
+        </div>
       </div>
-
-      <button onClick={edit}>Change</button>
     </div>
   )
 }

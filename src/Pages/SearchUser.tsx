@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-// import { Link } from 'react-router-dom'
 import UserCard from '../Components/UserCard'
-
+import { TextField, CircularProgress } from '@mui/material'
 export interface UserDetails {
   email: string;
   username: string;
@@ -17,6 +16,8 @@ export interface UserDetails {
 
 export default function SearchUser() {
   const [users, setUsers] = useState<UserDetails[]>([])
+  const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("")
   useEffect(() => {
     const users = async () => {
         try {
@@ -25,29 +26,11 @@ export default function SearchUser() {
               'Authorization': `Token ${window.localStorage.getItem('token')}`
             },
           })
-          console.log(resp.data)
-          // resp.data.results
           let users = resp.data.results
-
-          // const curr_user = window.localStorage.getItem('user_id');
-
-          // Removes the current user from the list
-          users.forEach((user: UserDetails, index: number) => {
-            if (user.pk.toString() === window.localStorage.getItem('user_id')) {
-              delete users[index]
-            } 
-          })
-        
-          // for(let i = 0; i < res.length; i++) {
-          //   console.log(res[i].pk)
-          // }
-          // delete res[window.localStorage.getItem('user_id')]
-          // res = res.filter(user => user !== window.localStorage.getItem('user_id'))
-          // console.log(users)
           setUsers(users)
-          // setProfileDetail(resp.data)
-          // console.log(profileDetail)
+          setLoading(false);
         } catch (err) {
+          setLoading(false);
           console.log(err)
         }
       }
@@ -56,10 +39,21 @@ export default function SearchUser() {
   
   return(
     <div>
-      {users.map((user, index) => {
-        return (<UserCard key={index} user={user}/>)
-      })}
+      <div id="userSearchbar">
+        <TextField placeholder="Search Username" onChange={event => setQuery(event.target.value)} />
+      </div>
+      <div id="userList">
+        {
+          !loading ?
+          users.filter(user => !query || user.username.toLowerCase().includes(query.toLowerCase())
+          ).map((user, index) => {
+            return (<UserCard key={index} user={user}/>)
+          }):
+          <div id="loading">
+            <CircularProgress />
+          </div>
+        }
+      </div>
     </div>
   )
 }
-

@@ -1,12 +1,10 @@
-// import { Link, 
-//   // useNavigate 
-// } from 'react-router-dom';
 import { useState, ChangeEvent, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Button, Checkbox, FormControlLabel  } from '@mui/material'
 import '../App.css'
-import ImageUploading from 'react-images-uploading';
-// import { ConnectingAirportsOutlined } from '@mui/icons-material';
+import ImageUploading, { ImageListType } from 'react-images-uploading';
+import { useNavigate } from "react-router-dom"
+import { AddHTTP } from '../Components/Utlis';
 
 export interface ProjectDetails {
   title: string;
@@ -21,7 +19,8 @@ export interface ProjectDetails {
 
 export default function AddProject() {
   const [isPublic, setIsPublic] = useState(true);
-  // const [image, setImage] = useState<File>();
+  const [images, setImages] = useState([]);
+  const navigate = useNavigate(); 
   const [projectDetail, setProjectDetail] = useState<ProjectDetails>({
     title: "",
     image_url: "",
@@ -34,33 +33,31 @@ export default function AddProject() {
   });
 
   const handleChange = (prop: keyof ProjectDetails) => (event: ChangeEvent<HTMLInputElement>) => {
+    if (prop === "backend_repo" || prop === "frontend_repo" || prop === "website") {
+      event.target.value = AddHTTP(event.target.value)
+    }
     setProjectDetail({ ...projectDetail, [prop]: event.target.value });
   };
 
   useEffect(()=> {
-    // console.log(isPublic)
     setProjectDetail((projectDetail) => ({...projectDetail, is_public: isPublic}))
   },[isPublic])
 
   const addProject = async () => {
     try {
-      // console.log(projectDetail.image_url)
-      const resp = await axios.post('https://terry-h12-project-portfolio.herokuapp.com/project/create/', projectDetail, {
+      await axios.post('https://terry-h12-project-portfolio.herokuapp.com/project/create/', projectDetail, {
         headers:{
           'Authorization': `Token ${window.localStorage.getItem('token')}`
         },
       })
-      console.log(resp.data)
+      navigate('/dashboard')
     } catch (err) {
       console.log(err)
     }
   }
-  // const maxNumber = 69;
-  const [images, setImages] = useState([]);
-  const onChange = (imageList: any, addUpdateIndex: any) => {
-    // data for submit
-    // console.log(imageList, addUpdateIndex);
-    setImages(imageList);
+
+  const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
+    setImages(imageList as never[]);
     
   };
   
@@ -70,34 +67,17 @@ export default function AddProject() {
     } else {
       setProjectDetail((projectDetail) => ({...projectDetail, image_url: ""}))
     }
-  },[images])
+  }, [images])
 
   return(
-    <div> 
-      {/* <Link to="/dashboard/profile">
-        Profile
-      </Link> <br/> */}
-      <h1>Add New Project</h1>
-      {/* <label>Title</label>
-      <input type="text" onChange={handleChange("title")}></input><br/>
-      <label>Description</label>
-      <input type="text" onChange={handleChange("description")}></input><br/>
-      <label>Backend Repo</label>
-      <input type="text" onChange={handleChange("backend_repo")}></input><br/>
-      <label>Frontend Repo</label>
-      <input type="text" onChange={handleChange("frontend_repo")}></input><br/>
-      <label>Website</label>
-      <input type="text" onChange={handleChange("website")}></input><br/>
-      <label>Image</label>
-      <input type="text" onChange={handleChange("image_url")}></input><br/>
-      <label>Public?</label> */}
-      {/* <input type="text" onChange={handleChange("is_public")}></input><br/> */}
-      <div id="addProjectForm">
-        <TextField id="title" label="Title " variant="standard" onChange={handleChange("title")} />
-        <TextField id="description" label="Description " variant="standard" onChange={handleChange("description")} />
-        <TextField id="backend_repo" label="Backend Repo " variant="standard" onChange={handleChange("backend_repo")} />
-        <TextField id="frontend_repo" label="Frontend Repo " variant="standard" onChange={handleChange("frontend_repo")} />
-        <TextField id="website" label="Website " variant="standard" onChange={handleChange("website")} />
+    <div id="AddProjectPage"> 
+      <div id="AddProjectTitle">Add New Project</div>
+      <div id="AddProjectForm">
+        <TextField id="title" label="Title " variant="outlined" onChange={handleChange("title")} />
+        <TextField id="description" label="Description" multiline rows={3} variant="outlined" onChange={handleChange("description")} />
+        <TextField id="frontend_repo" label="Frontend Repo " variant="outlined" onChange={handleChange("frontend_repo")} />
+        <TextField id="backend_repo" label="Backend Repo " variant="outlined" onChange={handleChange("backend_repo")} />
+        <TextField id="website" label="Website " variant="outlined" onChange={handleChange("website")} />
         <ImageUploading
         multiple
         value={images}
@@ -108,14 +88,13 @@ export default function AddProject() {
           {({
             imageList,
             onImageUpload,
-            onImageRemoveAll,
             onImageUpdate,
             onImageRemove,
             isDragging,
             dragProps,
           }) => (
-            // write your building UI
             <div className="upload__image-wrapper">
+              <span>Upload Image: </span>
               <Button
                 style={isDragging ? { color: 'red' } : undefined}
                 onClick={onImageUpload}
@@ -124,8 +103,6 @@ export default function AddProject() {
               >
                 Click or Drop here
               </Button>
-              {/* &nbsp; */}
-              {/* <Button variant="outlined" onClick={onImageRemoveAll}>Remove all images</Button> */}
               {imageList.map((image, index) => (
                 <div key={index} className="image-item">
                   <img src={image['data_url']} alt="" width="70%" />
@@ -139,46 +116,9 @@ export default function AddProject() {
             </div>
           )}
         </ImageUploading>
-        <FormControlLabel control={<Checkbox defaultChecked onChange={() => setIsPublic(curr => !curr)} />} label="Public" />
+        <FormControlLabel control={<Checkbox defaultChecked onChange={() => setIsPublic(curr => !curr)} />} label="Display publicly?" />
         <Button variant="outlined" onClick={addProject} >Add project</Button>
       </div>
-      
-      
-      {/* <input
-        type="file"
-        // name="myImage"
-        
-        onChange={(event) => {
-          console.log(event);
-          // setSelectedImage(event.target.files[0]);
-        }}
-      />
-
-      <Button
-        variant="outlined"
-        component="label"
-      >
-        Upload File
-        <input
-          type="file"
-          accept="image/jpeg"
-          onChange={(event) => {
-            console.log(event.target.files![0]);
-            // setSelectedImage(event.target.files[0]);
-            setImage(event.target.files![0])
-          }}
-          hidden
-          // style = {{ display: 'none' }}
-        />
-      </Button> */}
-
-
-
-      
-      {/* <input type="checkbox" onChange={() => setIsPublic(curr => !curr)} checked={isPublic}></input><br/> */}
-      
-
-      {/* <button onClick={addProject}>Add project</button> */}
     </div>
   );
 }
