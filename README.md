@@ -13,10 +13,10 @@ This project is a web app designed to provide users the ability to upload any pr
 ## Working Prototype
 - [Project Portfolio Manager](https://project-portfolio-manager.herokuapp.com/login "App")
 - Preloaded Account: 
-  -`username: terence11` 
-  -`password: 11`
-  In the *User* tab, `username: JohnSmith1` is an example of a user that has uploaded multiple projects.
+  - `username: terence11` 
+  - `password: 11`
+- In the *User* tab, `username: JohnSmith1` is an example of a user that has uploaded multiple projects.
 
 ## Author
-- [Profile](https://github.com/terry-h12 "terry-h12")
+- [Github Profile](https://github.com/terry-h12 "terry-h12")
 - [LinkedIn](https://www.linkedin.com/in/terence-huang-8742981b8/ "LinkedIn")
