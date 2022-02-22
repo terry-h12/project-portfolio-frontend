@@ -1,17 +1,10 @@
-import { 
-  Navigate, 
-  useRoutes 
-} from 'react-router-dom';
-
+import { Navigate, useRoutes } from 'react-router-dom';
 import Login from './Pages/Login';
-// Maybe change?
 import DashboardLayout from './Layouts/DashboardLayout';
 import LogoOnlyLayout from './Layouts/LogoOnlyLayout';
-
 import Register from './Pages/Register';
 import DashboardApp from './Pages/DashboardApp';
 import AddProject from './Pages/AddProject';
-// import Profile from './Components/Profile';
 import EditProject from './Pages/EditProject';
 import EditProfile from './Pages/EditProfile';
 import SearchUser from './Pages/SearchUser';
@@ -50,4 +43,3 @@ export default function Router() {
     { path: '*', element: <Navigate to="/404" /> },
   ]);
 }
-

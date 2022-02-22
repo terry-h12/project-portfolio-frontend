@@ -1,6 +1,5 @@
 import Routes from './Routes'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-
 const theme = createTheme({
   typography: {
     allVariants: {
